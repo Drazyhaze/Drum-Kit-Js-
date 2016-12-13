@@ -56,27 +56,26 @@
     <audio data-key="75" src="sounds/tom.wav"></audio>
     <audio data-key="76" src="sounds/tink.wav"></audio>
     <script>
-    function playSound(e) {
-        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
-        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
-        if (!audio) return; // stops the function if no key associated with audio
-        audio.currentTime = 0; // rewinds to the start
-        audio.play();
-        key.classList.add('playing');
-    }
+'use strict';
 
-    function removeTransition(e) {
-        if (e.propertyName !== 'transform') return; // skip it if its not a transition
-        this.classList.remove('playing')
-
-
-        console.log(e.propertyName)
-    }
-
-
-    const keys = document.querySelectorAll('.key');
-    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-    window.addEventListener('keydown', playSound)
+function playSound(e) {
+    var audio = document.querySelector('audio[data-key="' + e.keyCode + '"]');
+    var key = document.querySelector('.key[data-key="' + e.keyCode + '"]');
+    if (!audio) return; // stops the function if no key associated with audio
+    audio.currentTime = 0; // rewinds to the start
+    audio.play();
+    key.classList.add('playing');
+}
+function removeTransition(e) {
+    if (e.propertyName !== 'transform') return; // skip it if its not a transition
+    this.classList.remove('playing');
+    console.log(e.propertyName);
+}
+var keys = document.querySelectorAll('.key');
+keys.forEach(function (key) {
+    return key.addEventListener('transitionend', removeTransition);
+});
+window.addEventListener('keydown', playSound);
     </script>
 </body>
 
